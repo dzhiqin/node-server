@@ -44,20 +44,20 @@ import { Result } from "./result"
 //   }
 // }
 export class Validator {
-  static present(res,data){
-    if(!(data instanceof Object)){
-      throw Error('格式错误')
-    }
-    let arr = []
-    Object.keys(data).forEach(key => {
-      if(!data[key]){
-        arr.push(key)
-      }
-    })
-    if(arr.length){
-      return res.status(400).json(Result.validateFailed(`${arr.join(',')}校验失败,必须存在`))
-    }else{
-      return res.json({message:'ok'})
-    }
-  }
+	static present(res,data){
+		if(!(data instanceof Object)){
+			throw Error('格式错误')
+		}
+		let arr = []
+		Object.keys(data).forEach(key => {
+			if(!data[key]){
+				arr.push(key)
+			}
+		})
+		if(arr.length){
+			return res.status(400).json(Result.validateFailed(`${arr.join(',')}校验失败,必须存在`))
+		}else{
+			return res.json({message:'ok'})
+		}
+	}
 }

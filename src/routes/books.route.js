@@ -1,8 +1,8 @@
 import express from 'express'
 const router = express.Router()
 import {
-  getRecordById,
-  getRecordsByPage
+	getRecordById,
+	getRecordsByPage
 } from '../controllers/book.controller.js'
 
 router.get('/',getRecordsByPage)

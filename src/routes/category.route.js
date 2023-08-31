@@ -1,11 +1,11 @@
 import express from 'express'
 const router = express.Router()
 import {
-  getRecords,
-  getCategoryBooks,
-  deleteRecord,
-  createRecord,
-  getCategoryAuthors
+	getRecords,
+	getCategoryBooks,
+	deleteRecord,
+	createRecord,
+	getCategoryAuthors
 } from '../controllers/category.controller'
 
 router.get('/',getRecords)
