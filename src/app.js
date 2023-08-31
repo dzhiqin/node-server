@@ -17,6 +17,10 @@ import indexRouter from './routes/index'
 import usersRouter from './routes/users'
 import booksRouter from './routes/books.route'
 import categoriesRouter from './routes/category.route'
+import morgan from 'morgan'
+import fs from 'fs'
+import FileStreamRotator from 'file-stream-rotator/lib/FileStreamRotator'
+
 var app = express()
 
 // view engine setup
@@ -28,6 +32,28 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, '../public')))
+
+// 日志落地
+morgan.token('body',function(req){
+	return req.body ? JSON.stringify(req.body) : '-'
+})
+morgan.format('short', ':remote-addr :remote-user [:date[clf]] :method :body :url HTTP/:http-version :status :res[content-length] - :response-time ms')
+const env = process.env.NODE_ENV
+if(env !== 'production'){
+	app.use(morgan('short'))
+}else{
+	const logDirectory = path.join(__dirname, '../logs')
+	fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory)
+	const rotateLogStream = FileStreamRotator.getStream({
+		date_format: 'YYYYMMDD',
+		filename: path.join(logDirectory,'access-%DATE%.log'),
+		frequency: 'daily',
+		verbose: false,
+		max_logs: 10,
+		size: '50k'
+	})
+	app.use(morgan('short',{stream: rotateLogStream}))
+}
 
 app.use('/', indexRouter)
 app.use('/users', usersRouter)
