@@ -50,7 +50,7 @@ if(env !== 'production'){
 		frequency: 'daily',
 		verbose: false,
 		max_logs: 10,
-		size: '50k'
+		size: '500k'
 	})
 	app.use(morgan('short',{stream: rotateLogStream}))
 }

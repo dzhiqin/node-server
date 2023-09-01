@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "server": "babel-node ./src/bin/www",
-    "server:prod": "node ./dist/bin/www",
+    "server:prod": "pm2 start ./dist/bin/www.js --watch",
     "dev": "cross-env NODE_ENV=development npm run server",
     "clean": "rimraf dist",
     "build": "babel ./src --out-dir dist",
