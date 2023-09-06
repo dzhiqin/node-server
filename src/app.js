@@ -45,12 +45,14 @@ if(env !== 'production'){
 	const logDirectory = path.join(__dirname, '../logs')
 	fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory)
 	const rotateLogStream = FileStreamRotator.getStream({
-		date_format: 'YYYYMMDD',
-		filename: path.join(logDirectory,'access-%DATE%.log'),
+		filename: path.join(logDirectory,'%DATE%'),
+		date_format: 'YYYY-MM-DD',
 		frequency: 'daily',
 		verbose: false,
 		max_logs: 10,
-		size: '500k'
+		size: '50m',
+		audit_file: logDirectory,
+		extension: '.log'
 	})
 	app.use(morgan('short',{stream: rotateLogStream}))
 }
