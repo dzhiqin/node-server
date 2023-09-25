@@ -1,6 +1,5 @@
 import { Category,Book,Author } from '../models'
 import { Result } from '../libs/result'
-// import { Validator } from '../libs/validator'
 
 export const getRecords = (req,res) => {
 	Category.findAll({
@@ -47,7 +46,6 @@ export const deleteRecord = (req,res) => {
 }
 export const createRecord = (req,res) => {
 	let { name } = req.body
-	console.log('name=',name)
 	Category.create({
 		name
 	}).then(category => {

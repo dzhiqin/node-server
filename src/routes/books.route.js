@@ -4,7 +4,8 @@ import {
 	getRecordById,
 	getRecordsByPage
 } from '../controllers/book.controller.js'
+import { bookIndexValidator } from '../validators/book.validtor.js'
 
-router.get('/',getRecordsByPage)
+router.get('/',bookIndexValidator,getRecordsByPage)
 router.get('/:id',getRecordById)
 export default router
